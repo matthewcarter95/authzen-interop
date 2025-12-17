@@ -92,6 +92,11 @@ const config = {
             label: 'GitHub',
             position: 'right',
           },
+          {
+            type: 'custom-login',
+            position: 'right',
+            label: 'Login',
+          },
         ],
       },
       footer: {

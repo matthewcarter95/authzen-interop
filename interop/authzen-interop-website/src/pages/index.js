@@ -1,3 +1,4 @@
+import React from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -30,6 +31,18 @@ function HomepageHeader() {
 
 export default function Home() {
   const {siteConfig} = useDocusaurusContext();
+  const [tokenPayload, setTokenPayload] = React.useState(null);
+  React.useEffect(() => {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        setTokenPayload(payload);
+      } catch (e) {
+        setTokenPayload({ error: 'Invalid token' });
+      }
+    }
+  }, []);
   return (
     <Layout
       title={`${siteConfig.title}`}
@@ -37,6 +50,12 @@ export default function Home() {
       <HomepageHeader />
       <main>
         <HomepageFeatures />
+        {tokenPayload && (
+          <div style={{marginTop: 32, padding: 16, background: '#f5f5f5', borderRadius: 8}}>
+            <h2>Access Token Contents</h2>
+            <pre style={{overflowX: 'auto'}}>{JSON.stringify(tokenPayload, null, 2)}</pre>
+          </div>
+        )}
       </main>
     </Layout>
   );
