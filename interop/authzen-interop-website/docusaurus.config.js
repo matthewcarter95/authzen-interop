@@ -53,6 +53,13 @@ const config = {
     ],
   ],
 
+  scripts: [
+    {
+      src: '/env.js',
+      async: false,
+    },
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -91,11 +98,6 @@ const config = {
             href: 'https://github.com/openid/authzen',
             label: 'GitHub',
             position: 'right',
-          },
-          {
-            type: 'custom-login',
-            position: 'right',
-            label: 'Login',
           },
         ],
       },
